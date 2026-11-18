@@ -1,16 +1,16 @@
 import java.text.DecimalFormat;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class Register {
     private static final String RECEIPT_HEADER = "--- Kvittering ---";
 
-    private final LinkedHashMap<Item, Integer> basket = new LinkedHashMap<>(); // Stores items in your basket, along with amount of each item.
+    private final Map<Item, Integer> basket = new LinkedHashMap<>(); // Stores items in your basket, along with amount of each item.
 
     private final Store store;
 
 
-    private final DecimalFormat decimalFormat = new DecimalFormat("#.##");
+    private final DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
     public Register(Store store) {
         this.store = store;
