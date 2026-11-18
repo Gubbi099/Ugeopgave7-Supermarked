@@ -23,7 +23,7 @@ public class Register {
     public void printReceipt() {
         StringBuilder receipt = new StringBuilder(); // Create StringBuilder for performance when creating receipt.
 
-        receipt.append(RECEIPT_HEADER); // Print receipt header.
+        receipt.append(RECEIPT_HEADER); // Append receipt header.
         receipt.append("\n"); // Line break
 
         for (Item s : basket.keySet()) {
