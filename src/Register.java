@@ -1,16 +1,17 @@
-import java.text.DecimalFormat;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Register {
     private static final String RECEIPT_HEADER = "--- Kvittering ---";
 
+    // Receipt column formats. All three have the same width, so the prices line up.
+    private static final String LINE_FORMAT     = "%3dx %-55.55s %10.2f kr.%n";
+    private static final String DISCOUNT_FORMAT = "     %-55s %10.2f kr.%n";
+    private static final String TOTAL_FORMAT    = "%-60s %10.2f kr.%n";
+
     private final Map<Item, Integer> basket = new LinkedHashMap<>(); // Stores items in your basket, along with amount of each item.
 
     private final Store store;
-
-
-    private final DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
     public Register(Store store) {
         this.store = store;
@@ -23,23 +24,22 @@ public class Register {
     public void printReceipt() {
         StringBuilder receipt = new StringBuilder(); // Create StringBuilder for performance when creating receipt.
 
-        receipt.append(RECEIPT_HEADER); // Append receipt header.
-        receipt.append("\n"); // Line break
+        receipt.append(RECEIPT_HEADER).append("\n");
 
-        for (Item item : basket.keySet()) {
-            receipt.append(basket.get(item)).append("x ").append(item.getName()).append("      -      ");
-            if (this.isOnDiscount(item)) {
-                receipt.append("(Rabat -").append(decimalFormat.format(getTotalDiscount(item))).append(") ").append((decimalFormat.format(getTotalFullPrice(item)))).append(" / ");
+        for (Map.Entry<Item, Integer> entry : basket.entrySet()) {
+            Item item = entry.getKey();
+            int quantity = entry.getValue();
+
+            receipt.append(String.format(LINE_FORMAT, quantity, item.getName(), getTotalFullPrice(item)));
+            if (isOnDiscount(item)) {
+                receipt.append(String.format(DISCOUNT_FORMAT, "Rabat", -getTotalDiscount(item)));
             }
-            receipt.append(decimalFormat.format(getTotal(item))).append(" kr.");
-            receipt.append("\n"); // Line break
         }
-        receipt.append("\n"); // Line break
-        receipt.append("Total: ").append(this.getTotal()).append(" kr.");
+        receipt.append("\n");
+        receipt.append(String.format(TOTAL_FORMAT, "Total", getTotal()));
 
         System.out.println(receipt);
         basket.clear(); // clear the basket after printing the customers receipt.
-        receipt.setLength(0); // clear the string builder.
     }
 
     private boolean isOnDiscount(Item item) {
