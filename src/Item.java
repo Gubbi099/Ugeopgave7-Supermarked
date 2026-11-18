@@ -1,4 +1,4 @@
-public class Vare {
+public class Item {
     private long EAN;
     private String name;
     private String lastPriceChange;
@@ -6,7 +6,7 @@ public class Vare {
     private double amount;
     private String unit;
 
-    public Vare(long EAN, String name, String lastPriceChange, double price, double amount, String unit) {
+    public Item(long EAN, String name, String lastPriceChange, double price, double amount, String unit) {
         this.EAN = EAN;
         this.name = name;
         this.lastPriceChange = lastPriceChange;
