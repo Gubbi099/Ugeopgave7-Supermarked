@@ -21,25 +21,25 @@ public class Register {
     }
 
     public void printReceipt() {
-        StringBuilder stringBuilder = new StringBuilder(); // Create StringBuilder for performance when creating receipt.
+        StringBuilder receipt = new StringBuilder(); // Create StringBuilder for performance when creating receipt.
 
-        stringBuilder.append(RECEIPT_HEADER); // Print receipt header.
-        stringBuilder.append("\n"); // Line break
+        receipt.append(RECEIPT_HEADER); // Print receipt header.
+        receipt.append("\n"); // Line break
 
         for (Item s : basket.keySet()) {
-            stringBuilder.append(basket.get(s)).append("x ").append(s.getName()).append("      -      ");
+            receipt.append(basket.get(s)).append("x ").append(s.getName()).append("      -      ");
             if (this.isOnDiscount(s)) {
-                stringBuilder.append("(Rabat -").append(decimalFormat.format(getTotalDiscount(s))).append(") ").append((decimalFormat.format(getTotalFullPrice(s)))).append(" / ");
+                receipt.append("(Rabat -").append(decimalFormat.format(getTotalDiscount(s))).append(") ").append((decimalFormat.format(getTotalFullPrice(s)))).append(" / ");
             }
-            stringBuilder.append(decimalFormat.format(getTotal(s))).append(" kr.");
-            stringBuilder.append("\n"); // Line break
+            receipt.append(decimalFormat.format(getTotal(s))).append(" kr.");
+            receipt.append("\n"); // Line break
         }
-        stringBuilder.append("\n"); // Line break
-        stringBuilder.append("Total: ").append(this.getTotal()).append(" kr.");
+        receipt.append("\n"); // Line break
+        receipt.append("Total: ").append(this.getTotal()).append(" kr.");
 
-        System.out.println(stringBuilder);
+        System.out.println(receipt);
         basket.clear(); // clear the basket after printing the customers receipt.
-        stringBuilder.setLength(0); // clear the string builder.
+        receipt.setLength(0); // clear the string builder.
     }
 
     private boolean isOnDiscount(Item item) {
