@@ -19,10 +19,6 @@ public class Item {
         return EAN;
     }
 
-    public void setEAN(long EAN) {
-        this.EAN = EAN;
-    }
-
     public String getName() {
         return name;
     }
@@ -31,13 +27,6 @@ public class Item {
         this.name = name;
     }
 
-    public String getLastPriceChange() {
-        return lastPriceChange;
-    }
-
-    public void setLastPriceChange(String lastPriceChange) {
-        this.lastPriceChange = lastPriceChange;
-    }
 
     public double getPrice() {
         return price;
@@ -47,12 +36,17 @@ public class Item {
         this.price = price;
     }
 
-    public double getAmount() {
-        return amount;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Item other)) return false;
+        return EAN == other.EAN; // Items are the same product if their EAN matches.
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
+    @Override
+    public int hashCode() {
+        return Long.hashCode(EAN);
     }
 
 }
