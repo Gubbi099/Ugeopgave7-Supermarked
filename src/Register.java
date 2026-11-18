@@ -26,12 +26,12 @@ public class Register {
         receipt.append(RECEIPT_HEADER); // Append receipt header.
         receipt.append("\n"); // Line break
 
-        for (Item s : basket.keySet()) {
-            receipt.append(basket.get(s)).append("x ").append(s.getName()).append("      -      ");
-            if (this.isOnDiscount(s)) {
-                receipt.append("(Rabat -").append(decimalFormat.format(getTotalDiscount(s))).append(") ").append((decimalFormat.format(getTotalFullPrice(s)))).append(" / ");
+        for (Item item : basket.keySet()) {
+            receipt.append(basket.get(item)).append("x ").append(item.getName()).append("      -      ");
+            if (this.isOnDiscount(item)) {
+                receipt.append("(Rabat -").append(decimalFormat.format(getTotalDiscount(item))).append(") ").append((decimalFormat.format(getTotalFullPrice(item)))).append(" / ");
             }
-            receipt.append(decimalFormat.format(getTotal(s))).append(" kr.");
+            receipt.append(decimalFormat.format(getTotal(item))).append(" kr.");
             receipt.append("\n"); // Line break
         }
         receipt.append("\n"); // Line break
